@@ -1,6 +1,6 @@
 # Senior Analytics Engineer — Take-Home Brief
 
-Welcome! Thanks for taking the time to interview with us at Tracksuit. This is a take-home exercise we'd like you to complete.
+Hello, and thanks for taking the time to interview with us at Tracksuit! This is a take home exercise we'd like you to complete. This shouldn't be hard and shouldn't take very long. If it takes more than a few hours, you're overthinking it!
 
 > 💡 **Note:** This task is meant to give us something to talk over in your technical interview. It should feel similar to the kind of day-to-day work you'd be doing at Tracksuit. We're not trying to trick you. You're also more than welcome to use AI tools (Cursor, Claude, Copilot) to speed up your work. If you have any questions, please reach out!
 
