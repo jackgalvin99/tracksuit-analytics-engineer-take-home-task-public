@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+  - name: hubspot
+    schema: raw
+    tables:
+      - name: companies
+        description: "Raw HubSpot companies export."
+        identifier: hubspot_companies
+        columns:
+          - name: company_id
+            description: "Source primary key for the company."
+            data_tests:
+              - unique
+              - not_null
+          - name: company_name
+            description: "HubSpot company name."
+          - name: size_grouped
+            description: "Normalized size bucket from HubSpot."
+          - name: industry
+            description: "Industry classification from HubSpot."
+          - name: country
+            description: "Country code from HubSpot."
+          - name: merged_object_ids
+            description: "Comma-separated legacy object ids that should resolve to company_id."
+          - name: created_at
+            description: "Company creation date."

@@ -1,0 +1,73 @@
+version: 2
+
+models:
+  - name: stg_subskribe__accounts
+    description: "One row per Subskribe account, cast and renamed from the raw source."
+    columns:
+      - name: account_id
+        description: "Primary key for the account."
+        data_tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: "Customer-facing company name from Subskribe."
+      - name: crmid
+        description: "FK into HubSpot - may carry an hs_, hsold_, or hsmissing_ prefix."
+      - name: currency
+        description: "Account currency code."
+      - name: created_at
+        description: "Timestamp the Subskribe account was created."
+
+  - name: stg_subskribe__subscriptions
+    description: "One row per Subskribe subscription, with dates cast and renewal lineage preserved."
+    columns:
+      - name: subscription_id
+        description: "Primary key for the subscription."
+        data_tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: "FK to the owning Subskribe account."
+        data_tests:
+          - not_null
+      - name: subscription_state
+        description: "Current subscription state from the source system."
+      - name: start_date
+        description: "Subscription start date."
+      - name: end_date
+        description: "Subscription end date."
+      - name: cancelled_date
+        description: "Date the subscription was cancelled, when present."
+      - name: renewed_from_subscription_id
+        description: "Subscription id this term was renewed from."
+      - name: creation_time
+        description: "Original creation timestamp."
+      - name: updated_at
+        description: "Last update timestamp."
+
+  - name: stg_subskribe__invoices
+    description: "One row per Subskribe invoice, cast and renamed from the raw source."
+    columns:
+      - name: invoice_id
+        description: "Primary key for the invoice."
+        data_tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: "FK to the owning Subskribe account."
+        data_tests:
+          - not_null
+      - name: subscription_id
+        description: "FK to the subscribed contract."
+        data_tests:
+          - not_null
+      - name: invoice_date
+        description: "Invoice issue date."
+      - name: total
+        description: "Invoice total in the invoice currency."
+      - name: total_nzd
+        description: "Invoice total converted to NZD."
+      - name: currency
+        description: "Invoice currency code."
+      - name: status
+        description: "Invoice payment status."

@@ -1,0 +1,117 @@
+version: 2
+
+models:
+  - name: dim_accounts
+    description: "Conformed customer dimension, one row per Subskribe account enriched with HubSpot attributes."
+    columns:
+      - name: account_id
+        description: "Primary key for the customer dimension."
+        data_tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: "Customer-facing company name."
+      - name: crmid
+        description: "HubSpot CRM id used to connect the account to company metadata."
+      - name: industry
+        description: "Industry classification from HubSpot."
+      - name: size_grouped
+        description: "Grouped company size bucket."
+      - name: country
+        description: "Country code."
+      - name: currency
+        description: "Account currency code."
+      - name: created_at
+        description: "Account creation timestamp."
+
+  - name: dim_date
+    description: "Standard date dimension for slicing facts by day, month, quarter, and year."
+    columns:
+      - name: date_day
+        description: "Primary key for the date dimension."
+        data_tests:
+          - unique
+          - not_null
+      - name: year
+        description: "Calendar year."
+      - name: quarter
+        description: "Calendar quarter."
+      - name: month
+        description: "Calendar month number."
+      - name: day_of_month
+        description: "Day of month."
+      - name: day_of_week
+        description: "Day of week."
+      - name: week_of_year
+        description: "ISO week number."
+      - name: is_weekend
+        description: "True when the date falls on a weekend."
+
+  - name: fct_invoices
+    description: "Transaction fact at invoice grain with one row per invoice."
+    columns:
+      - name: invoice_id
+        description: "Primary key for the invoice fact."
+        data_tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: "FK to dim_accounts."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_accounts')
+                field: account_id
+      - name: invoice_date
+        description: "FK to dim_date for the invoice date."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: subscription_id
+        description: "Degenerate subscription identifier."
+      - name: status
+        description: "Invoice status carried as a degenerate dimension."
+      - name: currency
+        description: "Invoice currency code carried as a degenerate dimension."
+      - name: total_nzd
+        description: "Invoice total converted to NZD."
+
+  - name: fct_subscription_renewals
+    description: "Accumulating snapshot style fact at completed subscription-term grain, capturing the renewal outcome and retained ACV."
+    columns:
+      - name: subscription_id
+        description: "Primary key for the renewal fact row."
+        data_tests:
+          - unique
+          - not_null
+      - name: account_id
+        description: "FK to dim_accounts."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_accounts')
+                field: account_id
+      - name: end_date
+        description: "FK to dim_date for the term end date."
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_day
+      - name: original_acv
+        description: "ACV of the ending term."
+      - name: successor_acv
+        description: "ACV of the successor term, when the subscription renewed."
+      - name: retained_acv
+        description: "ACV retained into the successor term."
+      - name: outcome
+        description: "Renewal outcome classification."
+        data_tests:
+          - accepted_values:
+              values: ['renewed', 'churned', 'in-progress']

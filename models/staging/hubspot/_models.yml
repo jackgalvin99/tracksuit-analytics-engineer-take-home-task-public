@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: stg_hubspot__companies
+    description: "One row per HubSpot company, cast and lightly cleaned from the raw source."
+    columns:
+      - name: company_id
+        description: "Primary key for the company."
+        data_tests:
+          - unique
+          - not_null
+      - name: company_name
+        description: "HubSpot company name."
+      - name: size_grouped
+        description: "Normalized size bucket from HubSpot."
+      - name: industry
+        description: "Industry classification from HubSpot."
+      - name: country
+        description: "Country code from HubSpot."
+      - name: merged_object_ids
+        description: "Comma-separated legacy HubSpot ids that map back to this canonical company."
+      - name: created_at
+        description: "Company creation date."

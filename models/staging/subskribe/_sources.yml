@@ -1,0 +1,74 @@
+
+version: 2
+
+sources:
+  - name: subskribe
+    schema: raw
+    tables:
+      - name: accounts
+        description: "Raw Subskribe accounts export."
+        identifier: subskribe_accounts
+        columns:
+          - name: account_id
+            description: "Source primary key for the account."
+            data_tests:
+              - unique
+              - not_null
+          - name: company_name
+            description: "Customer-facing company name."
+          - name: crmid
+            description: "HubSpot CRM id as supplied by Subskribe."
+          - name: currency
+            description: "Account currency code."
+          - name: created_at
+            description: "Account creation timestamp."
+
+      - name: subscriptions
+        description: "Raw Subskribe subscriptions export."
+        identifier: subskribe_subscriptions
+        columns:
+          - name: subscription_id
+            description: "Source primary key for the subscription."
+            data_tests:
+              - unique
+              - not_null
+          - name: account_id
+            description: "Owning account id."
+          - name: subscription_state
+            description: "Subscription state in the source system."
+          - name: start_date
+            description: "Subscription start date."
+          - name: end_date
+            description: "Subscription end date."
+          - name: cancelled_date
+            description: "Cancellation date, when present."
+          - name: renewed_from_subscription_id
+            description: "Prior subscription id, when this row represents a renewal."
+          - name: creation_time
+            description: "Creation timestamp."
+          - name: updated_at
+            description: "Last update timestamp."
+
+      - name: invoices
+        description: "Raw Subskribe invoices export."
+        identifier: subskribe_invoices
+        columns:
+          - name: invoice_id
+            description: "Source primary key for the invoice."
+            data_tests:
+              - unique
+              - not_null
+          - name: account_id
+            description: "Owning account id."
+          - name: subscription_id
+            description: "Owning subscription id."
+          - name: invoice_date
+            description: "Invoice date."
+          - name: total
+            description: "Invoice total in the invoice currency."
+          - name: total_nzd
+            description: "Invoice total converted to NZD."
+          - name: currency
+            description: "Invoice currency code."
+          - name: status
+            description: "Invoice payment status."
