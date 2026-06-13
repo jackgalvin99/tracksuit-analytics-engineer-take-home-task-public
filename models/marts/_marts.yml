@@ -1,20 +1,20 @@
 version: 2
 
 models:
-	- name: grr_by_period
-		description: "Monthly Gross Revenue Retention segmented by customer size for the trailing 12 months."
-		columns:
-			- name: period_month
-				description: "Month bucket for the renewal outcome."
-			- name: size_grouped
-				description: "Customer size segment from the conformed account dimension."
-			- name: subscriptions_up_for_renewal
-				description: "Count of subscriptions that reached a renewal decision in the period."
-			- name: subscriptions_churned
-				description: "Count of subscriptions that churned in the period."
-			- name: starting_acv
-				description: "Starting ACV for subscriptions up for renewal in the period."
-			- name: retained_acv
-				description: "ACV retained through renewal."
-			- name: gross_revenue_retention
-				description: "Retained ACV divided by starting ACV."
+  - name: grr_by_period
+    description: "Monthly Gross Revenue Retention segmented by customer size for the trailing 12 months."
+    columns:
+      - name: period_month
+        description: "Month bucket for the renewal outcome."
+      - name: size_grouped
+        description: "Customer size segment from the conformed account dimension."
+      - name: subscriptions_up_for_renewal
+        description: "Count of subscriptions that reached a renewal decision in the period."
+      - name: subscriptions_churned
+        description: "Count of subscriptions that churned in the period."
+      - name: starting_acv
+        description: "Starting ACV for subscriptions up for renewal in the period."
+      - name: retained_acv
+        description: "ACV retained through renewal."
+      - name: gross_revenue_retention
+        description: "Retained ACV divided by starting ACV."
