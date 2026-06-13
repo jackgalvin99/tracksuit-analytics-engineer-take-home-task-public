@@ -10,7 +10,7 @@ acv as (
 	select
 		subscription_id,
 		(
-			sum(case when status != 'VOIDED' then total_nzd else 0 end)
+			sum(case when status != 'VOIDED' then cast(total_nzd as decimal(18,3)) else 0 end)
 			/ nullif(count(case when status != 'VOIDED' then 1 end), 0)
 		) * 12 as acv_nzd
 	from invoices
