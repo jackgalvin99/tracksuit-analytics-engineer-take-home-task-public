@@ -37,9 +37,9 @@ select
     r.crmid,
     r.hubspot_company_id,
     c.company_name as hubspot_company_name,
-    c.industry,
-    c.size_grouped,
-    c.country,
+    coalesce(c.industry, 'Unknown') as industry,
+    coalesce(c.size_grouped, 'Unknown') as size_grouped,
+    coalesce(c.country, 'Unknown') as country,
     r.currency,
     r.account_created_at,
     (r.hubspot_company_id is not null) as has_hubspot_match
