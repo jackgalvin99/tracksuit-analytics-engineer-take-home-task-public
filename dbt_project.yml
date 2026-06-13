@@ -16,6 +16,9 @@ clean-targets:
   - "dbt_packages"
 
 # How you organise, layer, name, and materialise your models is up to you.
+vars:
+  data_path: "data/raw"
+
 models:
   tracksuit_take_home:
     +materialized: view
