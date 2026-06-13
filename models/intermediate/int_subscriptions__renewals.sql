@@ -25,6 +25,7 @@ select
 	succ.successor_acv,
 	case
 		when succ.successor_subscription_id is not null then least(s.acv_nzd, succ.successor_acv)
+		when s.subscription_state = 'ACTIVE' then null
 		else 0
 	end as retained_acv,
 	case

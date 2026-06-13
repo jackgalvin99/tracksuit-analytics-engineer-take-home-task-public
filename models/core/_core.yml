@@ -9,10 +9,14 @@ models:
         data_tests:
           - unique
           - not_null
-      - name: company_name
-        description: "Customer-facing company name."
+      - name: subskribe_company_name
+        description: "Customer-facing company name from Subskribe."
       - name: crmid
         description: "HubSpot CRM id used to connect the account to company metadata."
+      - name: hubspot_company_id
+        description: "Resolved HubSpot company id."
+      - name: hubspot_company_name
+        description: "Company name from HubSpot."
       - name: industry
         description: "Industry classification from HubSpot."
       - name: size_grouped
@@ -21,12 +25,16 @@ models:
         description: "Country code."
       - name: currency
         description: "Account currency code."
-      - name: created_at
+      - name: account_created_at
         description: "Account creation timestamp."
+      - name: has_hubspot_match
+        description: "True when the account resolves to a HubSpot company id."
 
   - name: dim_date
     description: "Standard date dimension for slicing facts by day, month, quarter, and year."
     columns:
+      - name: date_key
+        description: "Integer date surrogate key in YYYYMMDD format."
       - name: date_day
         description: "Primary key for the date dimension."
         data_tests:
@@ -38,14 +46,16 @@ models:
         description: "Calendar quarter."
       - name: month
         description: "Calendar month number."
+      - name: month_name
+        description: "Calendar month name."
       - name: day_of_month
         description: "Day of month."
       - name: day_of_week
         description: "Day of week."
-      - name: week_of_year
-        description: "ISO week number."
-      - name: is_weekend
-        description: "True when the date falls on a weekend."
+      - name: day_name
+        description: "Day name."
+      - name: year_quarter
+        description: "Combined year and quarter label."
 
   - name: fct_invoices
     description: "Transaction fact at invoice grain with one row per invoice."

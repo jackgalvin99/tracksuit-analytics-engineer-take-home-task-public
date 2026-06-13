@@ -18,10 +18,7 @@ final as (
 
 	select distinct
 		company_id,
-		case
-			when merged_object_id = '' then company_id
-			else merged_object_id
-		end as merged_object_id
+		merged_object_id
 
 	from split_ids
 	where merged_object_id <> ''
