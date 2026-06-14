@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: grr_by_period
+  - name: rpt_grr_by_period
     description: "Monthly Gross Revenue Retention segmented by customer size for the trailing 12 months."
     columns:
       - name: period_month

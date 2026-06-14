@@ -16,17 +16,23 @@ with renewals as (
     where r.outcome in ('renewed', 'churned')
       and r.end_date >= date_trunc('month', current_date) - interval '11 months'
 
+),
+
+final as (
+
+    select
+        period_month,
+        size_grouped,
+        count(*) as subscriptions_up_for_renewal,
+        sum(case when outcome = 'churned' then 1 else 0 end) as subscriptions_churned,
+        sum(original_acv) as starting_acv,
+        sum(retained_acv) as retained_acv,
+        sum(retained_acv) / nullif(sum(original_acv), 0) as gross_revenue_retention
+        
+    from renewals
+    group by 1, 2
+    order by 1, 2
+
 )
 
-select
-    period_month,
-    size_grouped,
-    count(*) as subscriptions_up_for_renewal,
-    sum(case when outcome = 'churned' then 1 else 0 end) as subscriptions_churned,
-    sum(original_acv) as starting_acv,
-    sum(retained_acv) as retained_acv,
-    sum(retained_acv) / nullif(sum(original_acv), 0) as gross_revenue_retention
-
-from renewals
-group by 1, 2
-order by 1, 2
+select * from final
