@@ -11,7 +11,7 @@ with renewals as (
         r.retained_acv
 
     from {{ ref('fct_subscription_renewals') }} r
-    left join {{ ref('dim_accounts') }} a
+    left join {{ ref('dim_account') }} a
         on r.account_id = a.account_id
     where r.outcome in ('renewed', 'churned')
       and r.end_date >= date_trunc('month', current_date) - interval '11 months'
@@ -21,6 +21,7 @@ with renewals as (
 final as (
 
     select
+        {{ dbt_utils.generate_surrogate_key(['period_month', 'size_grouped']) }} as grr_by_period_key,
         period_month,
         size_grouped,
         count(*) as subscriptions_up_for_renewal,
@@ -28,10 +29,9 @@ final as (
         sum(original_acv) as starting_acv,
         sum(retained_acv) as retained_acv,
         sum(retained_acv) / nullif(sum(original_acv), 0) as gross_revenue_retention
-        
+
     from renewals
-    group by 1, 2
-    order by 1, 2
+    group by all
 
 )
 

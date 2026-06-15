@@ -40,7 +40,7 @@ Each dip is driven by a single churned account in a small cohort (1-7 subscripti
 
 GRR is implemented via a renewal-chain model rather than a point-in-time revenue comparison:
 
-- `int_subscriptions__renewals` walks the `renewed_from_subscription_id` chain to pair each subscription with its successor (if any).
+- `int_subscriptions_renewals` walks the `renewed_from_subscription_id` chain to pair each subscription with its successor (if any).
 - For a pair, the **original** subscription represents the cohort's revenue at month M-12, and the **successor** represents that same cohort's revenue at month M.
 - `retained_acv = least(original_acv, successor_acv)` implements the brief's "gross" requirement, any expansion in the successor is capped at the original amount, so upsells don't inflate retention.
 - `outcome` is derived per subscription:
@@ -58,7 +58,7 @@ GRR is implemented via a renewal-chain model rather than a point-in-time revenue
 
 ## Metric Definition: ACV
 
-`int_subscriptions__acv` computes ACV as an **annualised run-rate**, not cumulative invoiced revenue to date:
+`int_subscriptions_acv` computes ACV as an **annualised run-rate**, not cumulative invoiced revenue to date:
 
 ```sql
 acv_nzd = (
@@ -134,7 +134,7 @@ This fix changed the trailing-12-month GRR profile from a misleading decline tow
 
 Two `subskribe_accounts` rows (Wrenfield Brewing, Riverbend Co) have `crmid` values starting `hsmissing_` that don't match any `hubspot_companies.company_id` or `merged_object_ids` entry. These accounts have no corresponding CRM company record.
 
-Resolution: `dim_accounts` coalesces `size_grouped`, `industry`, and `country` to `'Unknown'` for these two accounts rather than dropping them or defaulting to a real segment value (which would misrepresent them). They surface in `rpt_grr_by_period` as their own `'Unknown'` segment rows (2025-09 and 2026-04, both GRR = 1.0, i.e. single-subscription cohorts with no churn), so they don't distort the named segments but remain visible for follow-up (e.g. fixing the CRM link).
+Resolution: `dim_account` coalesces `size_grouped`, `industry`, and `country` to `'Unknown'` for these two accounts rather than dropping them or defaulting to a real segment value (which would misrepresent them). They surface in `rpt_grr_by_period` as their own `'Unknown'` segment rows (2025-09 and 2026-04, both GRR = 1.0, i.e. single-subscription cohorts with no churn), so they don't distort the named segments but remain visible for follow-up (e.g. fixing the CRM link).
 
 ### VOIDED invoices
 

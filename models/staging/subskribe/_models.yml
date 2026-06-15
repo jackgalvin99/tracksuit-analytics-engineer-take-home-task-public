@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_subskribe__accounts
+  - name: stg_subskribe_accounts
     description: "One row per Subskribe account, cast and renamed from the raw source."
     columns:
       - name: account_id
@@ -18,7 +18,7 @@ models:
       - name: created_at
         description: "Timestamp the Subskribe account was created."
 
-  - name: stg_subskribe__subscriptions
+  - name: stg_subskribe_subscriptions
     description: "One row per Subskribe subscription, with dates cast and renewal lineage preserved."
     columns:
       - name: subscription_id
@@ -45,7 +45,7 @@ models:
       - name: updated_at
         description: "Last update timestamp."
 
-  - name: stg_subskribe__invoices
+  - name: stg_subskribe_invoices
     description: "One row per Subskribe invoice, cast and renamed from the raw source."
     columns:
       - name: invoice_id

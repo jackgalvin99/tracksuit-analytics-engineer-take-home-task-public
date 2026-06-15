@@ -16,7 +16,7 @@ sources:
           - name: company_name
             description: "HubSpot company name."
           - name: size_grouped
-            description: "Normalised size bucket from HubSpot."
+            description: "Normalized size bucket from HubSpot."
           - name: industry
             description: "Industry classification from HubSpot."
           - name: country

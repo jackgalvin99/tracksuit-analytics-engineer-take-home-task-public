@@ -12,7 +12,7 @@ Used to get unblocked on local tooling so I could query `tracksuit.duckdb` direc
 
 ## 2. Reviewing the dbt model structure
 
-Asked for a structural review of the dimensional model (`dim_accounts`, `dim_date`, `fct_invoices`, `fct_subscription_renewals`, `rpt_grr_by_period`, staging models). Claude flagged a few minor issues. `_core.yml` column docs not matching actual SQL output, an unused join in `rpt_grr_by_period`, dead code in the HubSpot bridge model, and `retained_acv = 0` vs `null` for in-progress subscriptions. I reviewed each and decided which were worth fixing vs. cosmetic.
+Asked for a structural review of the dimensional model (`dim_account`, `dim_date`, `fct_invoices`, `fct_subscription_renewals`, `rpt_grr_by_period`, staging models). Claude flagged a few minor issues. `_core.yml` column docs not matching actual SQL output, an unused join in `rpt_grr_by_period`, dead code in the HubSpot bridge model, and `retained_acv = 0` vs `null` for in-progress subscriptions. I reviewed each and decided which were worth fixing vs. cosmetic.
 
 ---
 

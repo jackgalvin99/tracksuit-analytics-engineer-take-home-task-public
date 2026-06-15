@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: stg_hubspot__companies
+  - name: stg_hubspot_companies
     description: "One row per HubSpot company, cast and lightly cleaned from the raw source."
     columns:
       - name: company_id
@@ -12,7 +12,7 @@ models:
       - name: company_name
         description: "HubSpot company name."
       - name: size_grouped
-        description: "Normalised size bucket from HubSpot."
+        description: "Normalized size bucket from HubSpot."
       - name: industry
         description: "Industry classification from HubSpot."
       - name: country

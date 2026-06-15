@@ -1,6 +1,6 @@
 with companies as (
 
-	select * from {{ ref('stg_hubspot__companies') }}
+	select * from {{ ref('stg_hubspot_companies') }}
 
 ),
 

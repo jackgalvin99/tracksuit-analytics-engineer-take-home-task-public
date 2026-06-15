@@ -1,12 +1,17 @@
 with subscriptions as (
-	select * from {{ ref('stg_subskribe__subscriptions') }}
+
+	select * from {{ ref('stg_subskribe_subscriptions') }}
+
 ),
 
 invoices as (
-	select * from {{ ref('stg_subskribe__invoices') }}
+
+	select * from {{ ref('stg_subskribe_invoices') }}
+
 ),
 
 acv as (
+
 	select
 		subscription_id,
 		(
@@ -15,9 +20,11 @@ acv as (
 		) * 12 as acv_nzd
 	from invoices
 	group by 1
+	
 ),
 
 final as (
+
 	select
 		s.subscription_id,
 		s.account_id,
@@ -32,6 +39,7 @@ final as (
 
 	from subscriptions s
 	left join acv a on s.subscription_id = a.subscription_id
+
 )
 
 select * from final

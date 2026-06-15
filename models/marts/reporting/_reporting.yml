@@ -4,6 +4,11 @@ models:
   - name: rpt_grr_by_period
     description: "Monthly Gross Revenue Retention segmented by customer size for the trailing 12 months."
     columns:
+      - name: grr_by_period_key
+        description: "Primary key for the GRR by period report. Made by hashing period_month and size_grouped."
+        data_tests:
+          - unique
+          - not_null
       - name: period_month
         description: "Month bucket for the renewal outcome."
       - name: size_grouped

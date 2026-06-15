@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: int_subscriptions__acv
+  - name: int_subscriptions_acv
     description: "One row per subscription with annual contract value derived from non-voided invoice totals."
     columns:
       - name: subscription_id
@@ -15,12 +15,12 @@ models:
           - not_null
           - relationships:
               arguments:
-                to: ref('stg_subskribe__accounts')
+                to: ref('stg_subskribe_accounts')
                 field: account_id
       - name: acv_nzd
         description: "Annual contract value in NZD, excluding voided invoices."
 
-  - name: int_subscriptions__renewals
+  - name: int_subscriptions_renewals
     description: "One row per subscription term with renewal outcome and retained ACV calculated from the successor subscription."
     columns:
       - name: subscription_id
@@ -34,7 +34,7 @@ models:
           - not_null
           - relationships:
               arguments:
-                to: ref('stg_subskribe__accounts')
+                to: ref('stg_subskribe_accounts')
                 field: account_id
       - name: renewed_from_subscription_id
         description: "Prior subscription id when this term is a renewal."
