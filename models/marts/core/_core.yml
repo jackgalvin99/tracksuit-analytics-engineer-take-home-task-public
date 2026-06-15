@@ -88,3 +88,4 @@ models:
         description: "Invoice currency code carried as a degenerate dimension."
       - name: total_nzd
         description: "Invoice total converted to NZD."
+        
